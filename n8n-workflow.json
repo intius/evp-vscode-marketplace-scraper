@@ -1,0 +1,114 @@
+{
+  "name": "VS Code Marketplace Scraper to webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 8,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "c5237cb2-364e-484c-b568-c35089c5a3ed",
+      "name": "Run every morning",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "Actors",
+        "operation": "Run actor and get dataset",
+        "actorSource": "store",
+        "actorInputMode": "json",
+        "actorId": {
+          "__rl": true,
+          "value": "jS69frHulbbEQeA1N",
+          "mode": "list",
+          "cachedResultName": "evpp/vscode-marketplace",
+          "cachedResultUrl": "https://apify.com/evpp/vscode-marketplace"
+        },
+        "customBody": "{\n  \"searchTerm\": \"python\",\n  \"sortBy\": \"installs\",\n  \"maxItems\": 25\n}",
+        "timeout": 300,
+        "memory": 512,
+        "build": "latest",
+        "authentication": "apifyApi"
+      },
+      "id": "d838093c-ee97-4032-84c3-1850501b834a",
+      "name": "Run VS Code Marketplace Scraper",
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        280,
+        0
+      ],
+      "credentials": {
+        "apifyApi": {
+          "name": "<your credential>"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://webhook.site/your-unique-url",
+        "sendBody": true,
+        "contentType": "json",
+        "body": "={{ $json }}",
+        "options": {}
+      },
+      "id": "edf59165-23d2-48c1-a434-299c68b7b063",
+      "name": "Send results to webhook",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Run every morning": {
+      "main": [
+        [
+          {
+            "node": "Run VS Code Marketplace Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run VS Code Marketplace Scraper": {
+      "main": [
+        [
+          {
+            "node": "Send results to webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "apify",
+    "web-scraping",
+    "vscode-marketplace"
+  ]
+}
