@@ -13,7 +13,7 @@
           ]
         }
       },
-      "id": "1d42ba11-2090-4072-80ac-90a0fbe40e85",
+      "id": "6a32fb28-a351-46d6-8a41-89f0282991d6",
       "name": "Run every morning",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -41,7 +41,7 @@
         "build": "latest",
         "authentication": "apifyApi"
       },
-      "id": "97579918-2a1a-4829-ba4d-41e5658420f9",
+      "id": "190de14e-f710-4896-b80a-3a6f4cc9390b",
       "name": "Run VS Code Marketplace Scraper",
       "type": "@apify/n8n-nodes-apify.apify",
       "typeVersion": 1,
@@ -60,11 +60,11 @@
         "method": "POST",
         "url": "https://webhook.site/your-unique-url",
         "sendBody": true,
-        "contentType": "json",
-        "body": "={{ $json }}",
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
         "options": {}
       },
-      "id": "ae107752-7e45-4a45-ad97-3cf3197637ef",
+      "id": "ab61c525-4991-4847-ae49-c43805195d08",
       "name": "Send results to webhook",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
